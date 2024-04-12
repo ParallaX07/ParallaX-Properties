@@ -1,0 +1,38 @@
+:root {
+    --swiper-scrollbar-bg-color: #FFD799;
+    --swiper-scrollbar-drag-bg-color: #FFA920;
+    --swiper-scrollbar-sides-offset: 20%;
+    --swiper-scrollbar-border-radius: 10px;
+    --swiper-scrollbar-top: auto;
+    --swiper-scrollbar-bottom: 4px;
+    --swiper-scrollbar-left: auto;
+    --swiper-scrollbar-right: 4px;
+    --swiper-scrollbar-size: 4px;
+}
+
+.swiper {
+    height: 100%;    
+}
+
+.mySlider{
+    padding-bottom: 20px;
+}
+
+.swiper-slide h2 {
+    font-size: 20px;
+}
+
+.swiper-slide p {
+    font-size: 16px;
+}
+
+.swiper-slide button {
+    font-size: 16px;
+}
+
+.mySlider  img {
+    display: block;
+    width: 340px;
+    height: 210px;
+    object-fit: cover;
+}
