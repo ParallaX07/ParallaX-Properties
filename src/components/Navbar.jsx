@@ -165,7 +165,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div className="glass fixed w-full top-0 z-50">
+            <div className="glass fixed w-full top-0 z-50 custom-shadow">
                 <nav className="lg:px-5 px-3 py-2 flex justify-between text-sm items-center lg:text-lg font-extrabold">
                     <Link to="/" className="flex items-center gap-2">
                         <img

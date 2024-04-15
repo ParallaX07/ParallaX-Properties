@@ -17,7 +17,7 @@ const AllProperties = () => {
 
     return (
         <>
-            <div className=" p-4 grid lg:grid-cols-3 grid-cols-1 mt-[88px] justify-center mx-3 lg:mx-32 gap-5 ">
+            <div className=" p-4 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-[88px] justify-center mx-3 lg:mx-32 gap-5 ">
                 {data.map((property) => (
                     <PropertyCard
                         key={property.id}

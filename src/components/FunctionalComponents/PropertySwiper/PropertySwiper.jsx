@@ -29,7 +29,6 @@ const PropertySwiper = ({ isLoading, properties }) => (
     <Swiper
         scrollbar={{ hide: false }}
         loop={true}
-        spaceBetween={0}
         breakpoints={breakpoints}
         modules={[Scrollbar]}
         className="mySlider"
@@ -51,8 +50,11 @@ const PropertySwiper = ({ isLoading, properties }) => (
             </>
         ) : (
             properties.map((property) => (
-                <SwiperSlide key={property.id} style={{ textAlign: "start" }}>
-                    <PropertyCard property={property} showStatus={true} />
+                <SwiperSlide
+                    key={property.id}
+                    style={{ textAlign: "start", display: "flex", flexDirection: "column", flexGrow: "1", height: "100%"}}
+                >
+                    <PropertyCard property={property} showStatus={true} className="h-full"/>
                 </SwiperSlide>
             ))
         )}

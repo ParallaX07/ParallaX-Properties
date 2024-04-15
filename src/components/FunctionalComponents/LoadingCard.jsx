@@ -1,6 +1,6 @@
 const LoadingCard = () => {
     return (
-        <div className="p-4 rounded-lg shadow-xl flex flex-col justify-center lg:w-fit w-full">
+        <div className="p-4 rounded-lg custom-shadow flex flex-col justify-center lg:w-fit w-full">
             <div className="rounded-lg lg:w-[340px] h-48 bg-gray-300 animate-pulse"></div>
             <div className="my-3">
                 <div className="h-6 w-3/4 bg-gray-300 animate-pulse"></div>

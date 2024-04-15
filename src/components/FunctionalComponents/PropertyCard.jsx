@@ -10,9 +10,9 @@ const PropertyCard = ({ property, showStatus }) => {
     const color = property.status === "sale" ? "bg-green-500" : "bg-red-500";
 
     return (
-        <div className="p-4 rounded-lg shadow-xl flex flex-col justify-center w-fit relative border border-gray-100">
+        <div className="p-4 rounded-3xl custom-shadow flex flex-col flex-grow justify-around lg:min-h-full relative border border-gray-100">
             <img
-                className="rounded-lg lg:w-[340px] lg:h-[210px] object-cover hover:scale-110 transition-transform duration-500 ease-in-out"
+                className="rounded-2xl h-[210px] object-cover hover:scale-105 transition-transform duration-500 ease-in-out"
                 src={property.image}
                 alt=""
             />
@@ -20,11 +20,11 @@ const PropertyCard = ({ property, showStatus }) => {
                 <h2 className="text-2xl font-extrabold hover:text-primary">
                     {property.estate_title}
                 </h2>
-                <p className="flex gap-2 items-center">
-                    <CiMap className="text-xl" />
+                <p className="flex gap-2 items-center mt-2">
+                    <CiMap className="lg:text-xl" />
                     {property.location}
                 </p>
-                <p className="text-xl text-primary font-bold mt-8">
+                <p className="text-xl text-primary font-bold lg:mt-4">
                     $ {property.price}
                 </p>
             </div>

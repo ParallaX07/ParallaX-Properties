@@ -12,12 +12,6 @@ import PrivateRoute from "./Auth/PrivateRoute";
 import ErrorPage from "./components/ErrorPage";
 import HomeBody from "./components/HomeBody/HomeBody";
 import Root from "./pages/Root";
-import Penthouse from "./components/HomeBody/Penthouse";
-import BeachFront from "./components/HomeBody/BeachFront";
-import Resorts from "./components/HomeBody/Resorts";
-import PrivateIslands from "./components/HomeBody/PrivateIslands";
-import Villas from "./components/HomeBody/Villas";
-import Mansions from "./components/HomeBody/Mansions";
 import PropertyPage from "./pages/PropertyPage";
 import AllProperties from "./pages/AllProperties";
 import Favorites from "./components/Favorites/Favorites";
@@ -31,32 +25,6 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <HomeBody />,
-                children: [
-                    {
-                        path: "/",
-                        element: <Penthouse />,
-                    },
-                    {
-                        path: "/beachfront-properties",
-                        element: <BeachFront />,
-                    },
-                    {
-                        path: "/resorts",
-                        element: <Resorts />,
-                    },
-                    {
-                        path: "/private-islands",
-                        element: <PrivateIslands />,
-                    },
-                    {
-                        path: "/villas",
-                        element: <Villas />,
-                    },
-                    {
-                        path: "/mansions",
-                        element: <Mansions />,
-                    },
-                ],
             },
             {
                 path: "/login",

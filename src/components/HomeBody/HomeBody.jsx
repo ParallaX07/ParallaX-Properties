@@ -1,15 +1,15 @@
 import Marquee from "react-fast-marquee";
 import BannerSlider from "../BannerSlider/BannerSlider";
 import useDocumentTitle from "../../utils/dynamicTitle";
-import { Outlet } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import useFetchData from "../../utils/useFetch";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CountUpComponent from "../FunctionalComponents/CountUpComponent";
 import PropertySwiper from "../FunctionalComponents/PropertySwiper/PropertySwiper";
+import PropertyCard from "../FunctionalComponents/PropertyCard";
+import LoadingCard from "../FunctionalComponents/LoadingCard";
 
 const marqueeImages = [
     "https://i.ibb.co/nnxSfYt/brand-3.png",
@@ -20,31 +20,54 @@ const marqueeImages = [
     "https://i.ibb.co/N1ZybFG/brand-4.png",
 ];
 
-// custom hook
-const useFilteredData = () => {
+const HomeBody = () => {
+    useDocumentTitle("Home | ParallaX Properties");
+
     const { data, isLoading } = useFetchData();
 
     const forRent = data.filter((property) => property.status === "rent");
     const forSale = data.filter((property) => property.status === "sale");
 
-    return { forRent, forSale, isLoading };
-};
+    const [selectedCategory, setSelectedCategory] = useState("penthouse");
+    const [filteredProperty, setFilteredProperty] = useState([]);
 
-const HomeBody = () => {
-    useDocumentTitle("Home | ParallaX Properties");
+    const [propertyLoading, setPropertyLoading] = useState(true);
 
-    const active =
-        "text-primary font-bold bg-white shadow-xl px-3 py-2 rounded-lg";
-    const inactive =
-        "text-black hover:text-primary font-bold rounded-lg shadow-xl px-3 py-2 rounded-lg";
-
-    const { forRent, forSale, isLoading } = useFilteredData();
+    const handleCategoryChange = useCallback((category) => {
+        setSelectedCategory(category);
+    }, []);
 
     useEffect(() => {
+        let timeoutId;
+        setPropertyLoading(true);
+        if (selectedCategory === "penthouse") {
+            setFilteredProperty(
+                data.filter((project) => project.segment_name === "penthouse")
+            );
+        } else {
+            setFilteredProperty(
+                data.filter(
+                    (project) => project.segment_name === selectedCategory
+                )
+            );
+        }
+        timeoutId = setTimeout(() => {
+            setPropertyLoading(false);
+        }, 2000);
+
         AOS.init({
             duration: 2000,
         });
-    }, []);
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [selectedCategory, data]);
+
+    const active =
+        "text-primary font-bold bg-white custom-shadow px-3 py-2 rounded-3xl";
+    const inactive =
+        "text-black hover:text-primary font-bold custom-shadow px-3 py-2 rounded-3xl";
 
     return (
         <>
@@ -68,7 +91,7 @@ const HomeBody = () => {
                 <BannerSlider />
             </div>
             {/* companies */}
-            <div className="lg:mx-32 mx-8 mt-8">
+            <div className="lg:mx-32 mx-3 mt-8">
                 <h1 className="mb-5 font-bold">
                     Trusted by over 150+ companies
                 </h1>
@@ -78,7 +101,7 @@ const HomeBody = () => {
                     ))}
                 </Marquee>
                 {/* featured properties */}
-                <section className="mt-10 lg:mt-20 mx-auto ">
+                <section className="mt-10 lg:mt-20 lg:mx-auto ">
                     <h2 className="text-center text-4xl font-extrabold">
                         Featured Properties
                     </h2>
@@ -89,68 +112,98 @@ const HomeBody = () => {
                         wowed!
                     </p>
                     <nav className="flex flex-wrap lg:justify-start justify-center gap-3 lg:mx-auto w-fit mt-8">
-                        <NavLink
-                            to="/"
-                            className={({ isActive }) =>
-                                isActive ? `${active}` : `${inactive}`
+                        <button
+                            onClick={() => handleCategoryChange("penthouse")}
+                            className={
+                                selectedCategory === "penthouse"
+                                    ? `${active}`
+                                    : `${inactive}`
                             }
                         >
                             Penthouse
-                        </NavLink>
-                        <NavLink
-                            to="/beachfront-properties"
-                            className={({ isActive }) =>
-                                isActive ? `${active}` : `${inactive}`
+                        </button>
+                        <button
+                            onClick={() =>
+                                handleCategoryChange("beachfront property")
+                            }
+                            className={
+                                selectedCategory === "beachfront property"
+                                    ? `${active}`
+                                    : `${inactive}`
                             }
                         >
                             Beachfront Properties
-                        </NavLink>
-                        <NavLink
-                            to="/resorts"
-                            className={({ isActive }) =>
-                                isActive ? `${active}` : `${inactive}`
+                        </button>
+                        <button
+                            onClick={() => handleCategoryChange("resort")}
+                            className={
+                                selectedCategory === "resort"
+                                    ? `${active}`
+                                    : `${inactive}`
                             }
                         >
                             Resorts
-                        </NavLink>
-                        <NavLink
-                            to="/private-islands"
-                            className={({ isActive }) =>
-                                isActive ? `${active}` : `${inactive}`
+                        </button>
+                        <button
+                            onClick={() =>
+                                handleCategoryChange("private island")
+                            }
+                            className={
+                                selectedCategory === "private island"
+                                    ? `${active}`
+                                    : `${inactive}`
                             }
                         >
                             Private Islands
-                        </NavLink>
-                        <NavLink
-                            to="/villas"
-                            className={({ isActive }) =>
-                                isActive ? `${active}` : `${inactive}`
+                        </button>
+                        <button
+                            onClick={() => handleCategoryChange("villa")}
+                            className={
+                                selectedCategory === "villa"
+                                    ? `${active}`
+                                    : `${inactive}`
                             }
                         >
                             Villas
-                        </NavLink>
-                        <NavLink
-                            to="/mansions"
-                            className={({ isActive }) =>
-                                isActive ? `${active}` : `${inactive}`
+                        </button>
+                        <button
+                            onClick={() => handleCategoryChange("mansion")}
+                            className={
+                                selectedCategory === "mansion"
+                                    ? `${active}`
+                                    : `${inactive}`
                             }
                         >
                             Mansions
-                        </NavLink>
+                        </button>
                     </nav>
                     {/* featured properties cards */}
                     <div
                         id="featured-properties"
                         data-aos="fade-up"
-                        className="grid lg:grid-cols-3 grid-cols-1 gap-3 py-8 justify-center"
+                        className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3 py-8 justify-center"
                     >
-                        <Outlet />
+                        {propertyLoading ? (
+                            <>
+                                <LoadingCard />
+                                <LoadingCard />
+                                <LoadingCard />
+                            </>
+                        ) : (
+                            filteredProperty.map((property) => (
+                                <PropertyCard
+                                    key={property.id}
+                                    property={property}
+                                    showStatus={false}
+                                />
+                            ))
+                        )}
                     </div>
                 </section>
             </div>
             <div
                 data-aos="fade"
-                data-aos-anchor-placement="top-center"
+                data-aos-anchor-placement="bottom-center"
                 className="mt-10 lg:mt-20 bg-gradient-to-tl py-10 from-accent via-white to-white"
             ></div>
 
@@ -159,6 +212,8 @@ const HomeBody = () => {
                 id="rent"
                 data-aos="fade"
                 data-aos-anchor-placement="top-center"
+                data-aos-easing="linear"
+                data-aos-duration="1500"
                 className="px-3 bg-gradient-to-bl lg:py-5 from-accent via-white to-white"
             >
                 <h2 className="text-center text-4xl font-extrabold">
@@ -169,7 +224,7 @@ const HomeBody = () => {
                     properties available for rent. From cozy apartments to
                     spacious villas, we have it all!
                 </p>
-                <div className="lg:mx-32">
+                <div className="lg:mx-32 text-sm">
                     <PropertySwiper
                         isLoading={isLoading}
                         properties={forRent}

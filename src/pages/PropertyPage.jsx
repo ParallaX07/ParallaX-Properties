@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import useFetchData from "../utils/useFetch";
 import { CiMap } from "react-icons/ci";
-import PropertyDetail from "./../components/FunctionalComponents/PropertyDetail";
+import PropertyDetail from "../components/FunctionalComponents/PropertyDetail";
 import { IoBedOutline } from "react-icons/io5";
 import { TbBath, TbRulerMeasure } from "react-icons/tb";
 import { LuShapes } from "react-icons/lu";
@@ -99,7 +99,9 @@ const PropertyPage = () => {
         const favorites = getFromStorage(user.email);
         if (!favorites.includes(currentProperty.id)) {
             favorites.push(currentProperty.id);
-            notifySuccess(`'${currentProperty.estate_title}' added to favorites`);
+            notifySuccess(
+                `'${currentProperty.estate_title}' added to favorites`
+            );
             addToStorage(user.email, [...favorites]);
             setIsFavorite(true);
             return;
@@ -114,66 +116,77 @@ const PropertyPage = () => {
 
     return (
         <>
-            <div className="lg:pb-0 pb-4 flex lg:flex-row flex-col-reverse gap-5 justify-between lg:mt-[80px] mt-[88px]">
-                <div className="mx-3 lg:ml-10 lg:mt-10 flex justify-between flex-col">
-                    <h1 className="animate__animated animate__fadeInDown font-black text-4xl lg:text-7xl text-black">
-                        {currentProperty.estate_title}
-                    </h1>
-                    <div className="flex lg:items-center lg:flex-row flex-col lg:justify-between gap-3 mt-8">
-                        <div className="animate__animated animate__fadeInUp">
-                            <div className="flex lg:flex-row flex-col gap-3 lg:items-center">
-                                <p className="">
-                                    <span
-                                        className={`${
-                                            currentProperty.status === "rent"
-                                                ? "bg-red-500"
-                                                : "bg-green-500"
-                                        } text-white font-extrabold text-sm w-fit rounded-3xl px-2 py-1`}
-                                    >
-                                        For {currentProperty.status}
-                                    </span>
-                                </p>
-                                <div className="flex items-center gap-3">
-                                    <p className="flex gap-2 items-center">
-                                        <CiMap className="text-xl" />
-                                        {currentProperty.location}
+            <div className="lg:pb-0 pb-4 flex flex-col gap-5 lg:mt-[80px] mt-[88px] mb-10">
+                <div className="flex lg:flex-row flex-col lg:h-dvh">
+                    <div className="flex w-full">
+                        <img
+                            className="object-cover lg:rounded-br-xl"
+                            src={currentProperty.image}
+                            alt={currentProperty.name}
+                        />
+                    </div>
+                    <div className="w-full lg:p-10 p-3 flex justify-center flex-col items-start">
+                        <h1 className="animate__animated animate__fadeInDown font-black text-4xl lg:text-7xl text-black">
+                            {currentProperty.estate_title}
+                        </h1>
+                        <div className="flex lg:items-start  flex-col lg:justify-between gap-3 lg:gap-5 lg:mt-8 mt-3">
+                            <div className="animate__animated animate__fadeInUp">
+                                <div className="flex lg:flex-row flex-col gap-3 lg:items-center">
+                                    <p className="">
+                                        <span
+                                            className={`${
+                                                currentProperty.status ===
+                                                "rent"
+                                                    ? "bg-red-500"
+                                                    : "bg-green-500"
+                                            } text-white font-extrabold text-sm w-fit rounded-3xl px-2 py-1`}
+                                        >
+                                            For {currentProperty.status}
+                                        </span>
                                     </p>
-                                    <button
-                                        onClick={handleFavorite}
-                                        className={`p-2 rounded-xl border-2 text-gray-400 ${
-                                            isFavorite
-                                                ? "bg-primary text-white border-primary"
-                                                : "hover:text-white hover:bg-primary hover:border-primary"
-                                        }`}
-                                    >
-                                        <FaRegHeart className="text-2xl" />
-                                    </button>
+                                    <div className="flex items-center gap-3">
+                                        <p className="flex gap-2 items-center">
+                                            <CiMap className="text-xl" />
+                                            {currentProperty.location}
+                                        </p>
+                                        <button
+                                            onClick={handleFavorite}
+                                            className={`p-2 rounded-xl border-2 text-gray-400 ${
+                                                isFavorite
+                                                    ? "bg-primary text-white border-primary"
+                                                    : "hover:text-white hover:bg-primary hover:border-primary"
+                                            }`}
+                                        >
+                                            <FaRegHeart className="text-2xl" />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap items-center gap-3 lg:mt-4 mt-3">
+                                    <PropertyDetail
+                                        IconComponent={IoBedOutline}
+                                        label="Beds"
+                                        value={currentProperty.beds.toString()}
+                                    />
+                                    <PropertyDetail
+                                        IconComponent={TbBath}
+                                        label="Baths"
+                                        value={currentProperty.baths.toString()}
+                                    />
+                                    <PropertyDetail
+                                        IconComponent={TbRulerMeasure}
+                                        label="Sq ft"
+                                        value={currentProperty.area.toString()}
+                                    />
                                 </div>
                             </div>
-                            <div className="flex flex-wrap items-center gap-3 mt-4">
-                                <PropertyDetail
-                                    IconComponent={IoBedOutline}
-                                    label="Beds"
-                                    value={currentProperty.beds.toString()}
-                                />
-                                <PropertyDetail
-                                    IconComponent={TbBath}
-                                    label="Baths"
-                                    value={currentProperty.baths.toString()}
-                                />
-                                <PropertyDetail
-                                    IconComponent={TbRulerMeasure}
-                                    label="Sq ft"
-                                    value={currentProperty.area.toString()}
-                                />
-                            </div>
+                            <p className="text-3xl text-primary font-black animate__animated animate__fadeInUp">
+                                $ {currentProperty.price}
+                            </p>
                         </div>
-                        <p className="text-3xl text-primary font-black animate__animated animate__fadeInUp">
-                            $ {currentProperty.price}
-                        </p>
                     </div>
-
-                    <div className="mt-8 shadow-md w-full rounded-xl p-5 animate__animated animate__fadeIn">
+                </div>
+                <div className="grid lg:grid-cols-2 grid-cols-1 lg:mx-5 mx-3 lg:gap-8 gap-3">
+                    <div className="mt-8 custom-shadow w-full rounded-xl p-5 animate__animated animate__fadeIn">
                         <p className="font-bold text-xl">Overview</p>
                         <hr className="text-gray-400 my-3" />
                         <div className="grid lg:grid-cols-4 grid-cols-1 items-center gap-6">
@@ -216,14 +229,26 @@ const PropertyPage = () => {
                             />
                         </div>
                     </div>
-                    <div className="mt-8 shadow-md w-full rounded-xl p-5">
+                    <div className="mt-8 custom-shadow w-full rounded-xl p-5">
                         <h1 className="font-bold text-2xl">Description</h1>
                         <hr className="text-gray-400 my-3" />
                         <p className="text-gray-500 mt-3">
-                            {currentProperty.description}
+                            {currentProperty.description
+                                .split(". ")
+                                .map((sentence, index, array) => {
+                                    return index !== array.length - 1 ? (
+                                        <>
+                                            <span>{sentence}.</span>
+                                            <br/>
+                                            <br/>
+                                        </>
+                                    ) : (
+                                        <span>{sentence}</span>
+                                    );
+                                })}
                         </p>
                     </div>
-                    <div className="mt-8 shadow-md w-full rounded-xl p-5">
+                    <div className="mt-8 custom-shadow w-full rounded-xl p-5">
                         <h1 className="font-bold text-2xl">Property Details</h1>
                         <hr className="text-gray-400 my-3" />
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 capitalize">
@@ -263,27 +288,25 @@ const PropertyPage = () => {
                             />
                         </div>
                     </div>
-                </div>
-                <div>
-                    <img
-                        className="object-cover lg:rounded-bl-xl"
-                        src={currentProperty.image}
-                        alt={currentProperty.name}
-                    />
-                </div>
-            </div>
-            <div className="mt-8 shadow-md max-w-full rounded-xl p-5 lg:max-w-fit mb-10 lg:mx-10 mx-3 ">
-                <h1 className="font-bold text-2xl">Facilties</h1>
-                <hr className="text-gray-400 my-3" />
-                <div className="grid grid-cols-1 items-center lg:grid-cols-4 gap-3 capitalize font-bold">
-                    {(currentProperty.facilities || []).map((facility, idx) => (
-                        <div key={idx} className="flex items-center gap-2">
-                            <div className="p-1 rounded-lg bg-primary">
-                                <TiTick className="text-white text-2xl " />
-                            </div>
-                            <p>{facility}</p>
+                    <div className="mt-8 custom-shadow max-w-full rounded-xl p-5">
+                        <h1 className="font-bold text-2xl">Facilties</h1>
+                        <hr className="text-gray-400 my-3" />
+                        <div className="grid grid-cols-1 items-center lg:grid-cols-3 md:grid-cols-2 gap-3 capitalize font-bold">
+                            {(currentProperty.facilities || []).map(
+                                (facility, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="flex items-center gap-2"
+                                    >
+                                        <div className="p-1 rounded-lg bg-primary">
+                                            <TiTick className="text-white text-2xl " />
+                                        </div>
+                                        <p>{facility}</p>
+                                    </div>
+                                )
+                            )}
                         </div>
-                    ))}
+                    </div>
                 </div>
             </div>
         </>

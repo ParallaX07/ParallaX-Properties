@@ -86,13 +86,13 @@ const UpdateProfile = () => {
                                 {user?.email}
                             </p>
                         </div>
-                        <div className="xl:mx-auto xl:w-full shadow-md p-4 xl:max-w-sm 2xl:max-w-md">
+                        <div className="xl:mx-auto xl:w-full custom-shadow p-4 xl:max-w-sm 2xl:max-w-md rounded-lg border border-gray-200">
                             <div className="mb-2 flex justify-center"></div>
                             <h2 className="text-center text-2xl font-bold leading-tight text-black">
                                 Update your profile
                             </h2>
 
-                            <form className="mt-2" onSubmit={handleUpdate}>
+                            <form className="mt-2 rounded-lg" onSubmit={handleUpdate}>
                                 <div className="space-y-5">
                                     <div>
                                         <label className="text-base font-medium text-gray-900">

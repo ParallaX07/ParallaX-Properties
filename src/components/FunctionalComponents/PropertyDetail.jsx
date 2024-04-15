@@ -10,8 +10,8 @@ import PropTypes from "prop-types";
  * @returns {React.ReactNode} The rendered property detail component.
  */
 const PropertyDetail = ({ IconComponent, label, value }) => (
-    <p className="flex items-center">
-        <IconComponent className="text-xl mr-1" />
+    <p className="flex items-center text-sm">
+        <IconComponent className="lg:text-lg mr-1" />
         {label}:<span className="font-bold ml-2">{value}</span>
     </p>
 );
