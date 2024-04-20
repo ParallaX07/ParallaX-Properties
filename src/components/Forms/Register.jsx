@@ -79,7 +79,6 @@ const Register = () => {
             })
             .catch((error) => {
                 notifyError(error.code);
-                return;
             });
 
         if (!loading) {

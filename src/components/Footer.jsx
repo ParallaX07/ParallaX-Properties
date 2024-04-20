@@ -207,7 +207,7 @@ const Footer = () => {
             </div>
             <hr className="my-5 text-gray-400 w-full" />
             <p className="text-gray-400 text-center">
-                © 2021 ParallaX Properties. All rights reserved.
+                © 2024 ParallaX Properties. All rights reserved.
             </p>
         </div>
     );

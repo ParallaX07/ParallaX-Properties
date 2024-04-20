@@ -5,7 +5,7 @@ import { Tooltip } from "react-tooltip";
 
 const PasswordInput = ({ name, placeholder, onValueChange }) => {
     const [showPassword, setShowPassword] = useState(false);
-    const [isInputFocused, setInputFocused] = useState(false);
+    const [isInputFocused, setIsInputFocused] = useState(false);
 
     const handleInputChange = (event) => {
         onValueChange(event.target.value);
@@ -20,9 +20,9 @@ const PasswordInput = ({ name, placeholder, onValueChange }) => {
                 className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400"
                 required
                 onChange={handleInputChange}
-                onFocus={() => setInputFocused(true)}
+                onFocus={() => setIsInputFocused(true)}
                 onBlur={() => {
-                    setInputFocused(false);
+                    setIsInputFocused(false);
                     setShowPassword(false);
                 }}
             />
